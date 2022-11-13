@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mt-4 p-5 bg-dark text-white rounded">
+{% for message in get_flashed_messages() %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Hey, {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+     
+{% endfor %}
+
+  {% if name %}
+        <h1>MySQL Update User!</h1>
+        <br/>
+    
+       
+  {% else %}
+        <h1>MySQL Update User...</h1>
+        <br/>
+        <div class="mt-4 p-5 bg-info text-white rounded">
+        <form action="/update/{{name_to_update.id}}" method="POST">
+            {{ form.hidden_tag() }}
+            
+            {{ form.name.label }}
+
+            {{ form.name(class="form-control", value=name_to_update.name) }}
+
+            <br/>
+
+            {{ form.email.label }}
+
+            {{ form.email(class="form-control", value=name_to_update.email) }}
+
+          
+            <br/>
+
+            {{ form.submit(class="btn btn-success") }}
+            <!--pass through an id not our_user.id-->
+            <a href='{{url_for("delete", id=id)}}' class='btn btn-danger'>Delete</a>
+        </form>
+      </div>
+        <br/><br/>
+        {% for our_user in our_users %}
+            {{ our_user.id }}
+            {{ our_user.name }}
+            {{ our_user.email }}</br>
+        {% endfor %}
+      </div>
+</div>
+
+{% endif %}
+{% endblock %}
+  
+    
+
+

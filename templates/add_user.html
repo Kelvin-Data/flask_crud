@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mt-4 p-5 bg-info text-white rounded">
+{% for message in get_flashed_messages() %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Hey, {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+     
+{% endfor %}
+
+  {% if name %}
+        <h1>User Added!</h1>
+        <br/>
+          <td>
+          {% for our_user in our_users %}
+            {{ our_user.id }}
+            <a href='{{url_for("update", id=our_user.id)}}'>{{ our_user.name }}</a>
+            {{ our_user.email }}<a href='{{url_for("delete", id=our_user.id)}}'>Delete</a>
+          </td>
+        </tr>
+      </br>
+        {% endfor %}
+       
+  {% else %}
+        <h1>MySQL User List:</h1>
+        <br/>
+        <div class="mt-4 p-5 bg-warning text-white rounded">
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            
+            {{ form.name.label }}
+
+            {{ form.name(class="form-control") }}
+
+            <br/>
+
+            {{ form.email.label }}
+
+            {{ form.email(class="form-control") }}
+
+          
+            <br/>
+
+            {{ form.submit(class="btn btn-success") }}
+           
+           
+        </form>
+      </div>
+        <br/><br/>
+     
+            <tr>
+
+          <td>{% for our_user in our_users %}
+            {{ our_users.id }}
+            <a href='{{url_for("update", id=our_user.id)}}'>{{ our_user.name }}</a>
+            {{ our_user.email }}
+            <a href='{{url_for("delete", id=our_user.id)}}'>Delete</a>
+          </td>
+        </tr>
+      </br>
+        {% endfor %}
+  
+
+
+  
+
+</div>
+</div>
+{% endif %}
+{% endblock %}
+  
+    
+
+
